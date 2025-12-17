@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<header class="bg-white shadow-md p-4 mb-6">
+    <h1 class="text-3xl font-bold text-blue-600">ITECHHUB-BookStore</h1>
+</header>
+
+<main class="container mx-auto px-4">
+
+    <!-- Authors -->
+    <section class="mb-10">
+        <h2 class="text-2xl font-semibold mb-4">Authors</h2>
+        <ul class="space-y-2">
+            {% for author in authors %}
+            <li class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+                {{ author.first_name }} {{ author.last_name }} - {{ author.nationality }} - Age: {{ author.age }} - Total Books: {{ author.total_books }}
+            </li>
+            {% empty %}
+            <li>No authors available</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Books -->
+    <section class="mb-10">
+        <h2 class="text-2xl font-semibold mb-4">Books</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for book in books %}
+            <div class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+                <img src="{{ book.image.url }}" alt="{{ book.author.first_name }}" class="w-full h-48 object-cover rounded mb-2">
+                <p class="font-medium">{{ book.author.first_name }}'s Book</p>
+                <p>Pages: {{ book.pages }} | Price: {{ book.price }} UZS</p>
+                <p>Cover: {{ book.cover }} | Sold: {{ book.total_sold }} | Stock: {{ book.in_stock }}</p>
+            </div>
+            {% empty %}
+            <p>No books available</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Stores -->
+    <section class="mb-10">
+        <h2 class="text-2xl font-semibold mb-4">Stores</h2>
+        <ul class="space-y-2">
+            {% for store in stores %}
+            <li class="bg-white p-4 rounded shadow hover:shadow-lg transition">
+                {{ store.name }} - Address: {{ store.address }} - Seller: {{ store.seller.username }} - Total Sold Books: {{ store.total_sold_books }}
+            </li>
+            {% empty %}
+            <li>No stores available</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+</main>
+
+<footer class="bg-white shadow-inner mt-10 p-4 text-center text-gray-500">
+    © 2025 BookStore. All rights reserved.
+</footer>
+
+</body>
+</html>
